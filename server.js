@@ -1,7 +1,6 @@
 const http = require("http");
 const server = http.createServer();
 const { info, warning, success } = require("./log");
-const { parse } = require("querystring");
 const { wejapaFormData } = require("./utils");
 
 const port = process.env.PORT || 6500;
