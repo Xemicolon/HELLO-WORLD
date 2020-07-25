@@ -1,6 +1,7 @@
 const http = require("http");
 const server = http.createServer();
 const { info, warning, success } = require("./log");
+const { parse } = require("querystring");
 const { wejapaFormData } = require("./utils");
 
 const port = process.env.PORT || 6500;
@@ -23,6 +24,13 @@ server.on("request", (req, res) => {
   } else if (req.method === "POST" && req.url === "/") {
     res.writeHead(201, { "Content-Type": "text/html" });
     wejapaFormData(req, (data) => {
+      if (data.name.length === 0) {
+        res.end(`<h1 style="text-align: center; margin-top: 150px;">Hello anonymous, Welcome to WeJapa Internships</h1>
+        
+        <h1 style="text-align: center;"><a href="/" style="font-size: 24px;">Take me back</a></h1>
+        `);
+      }
+
       res.end(`<h1 style="text-align: center; margin-top: 150px;">Hello ${data.name}, Welcome to WeJapa Internships</h1>
       
       <h1 style="text-align: center;"><a href="/" style="font-size: 24px;">Take me back</a></h1>`);
